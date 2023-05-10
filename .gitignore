@@ -1,0 +1,22 @@
+#Carpetas
+.idea
+.vscode
+.vscode-test
+.vscode-test-data
+
+#carpetas mac y tales
+.DS_Store
+.env
+
+#archivos de node js
+node_modules
+
+#archivos
+
+#config de base de datos
+/class/conexion.php
+/class/classconexion.php
+
+#config de los titulos para que siempre sea local en local :)
+/assets/script/titulos.js
+assets/script/titulos.js
