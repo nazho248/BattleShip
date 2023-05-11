@@ -1,21 +1,140 @@
+
 body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: 'Roboto', sans-serif;
+    /*reset*/
     background-color: #CEDEEA;
     text-align: center;
 }
-#board{
-    width: 300px;
-    height: 300px;
+
+
+/*CONTENEDORES DEL JUEGO Y MENU*/
+/*contenedor del juego dle tamaño de toda la pantalla*/
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.myRow{
-    width: 300px;
-    height: 30px;
+/*contenedor del juego, es la parte izquierda*/
+.Game{
+    width: 100%;
+    height: 100%;
+    background-color: #926e6e;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
-.grid{
-    width: 30px;
-    height: 30px;
-    border: black 0.5px solid;
-    display: inline-block
+/*contenedor del menu lateral, es la parte derecha*/
+.lateral-menu{
+    position: fixed;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    width: 25%;
+    height: 50%;
+    right: 0;
+    transition: all 1s ease;
 }
+.lateral-menu.hide {
+    background-color: rgba(255,255,255,0);
+    box-shadow: none;
+    transition: all 1s ease;
+}
+.lateral-menu.hide .menu-content{
+    color: rgba(255,255,255,0);
+    transition: all 1s ease;
+}
+
+.lateral-menu #btnMenu{
+    position: absolute;
+    background-color: #ff6a6a;
+    width: 50px;
+    height: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 1s ease;
+
+}
+
+/*when the screen is smaller than 992px*/
+@media screen and (max-width: 992px){
+    .lateral-menu{
+        bottom: 0;
+        width: 100%;
+        height: 20%;
+        transition: all 1s ease;
+    }
+
+    .lateral-menu.hide{
+        bottom: -20%;
+    }
+    .lateral-menu #btnMenu{
+        top: -50px;
+        left: 48%;
+        border-top-right-radius: 50%;
+        border-top-left-radius: 50%;
+    }
+}
+/*when the screen is bigger than 768px*/
+@media screen and (min-width: 992px){
+    .lateral-menu.hide{
+        right: -25%;
+    }
+
+    .lateral-menu #btnMenu{
+        top: 45%;
+        left: -50px;
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+    }
+}
+
+.menu-content{
+    margin: 20px;
+    text-align: center;
+}
+/*FIN CONTENEDORES MENU*/
+
+
+
+/*contenedor de los tableros*/
+.flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*ancho del tablero del jugador*/
+.col{
+    width: 40%;
+}
+.myRow {
+    width: 100%;
+    display: flex;
+}
+
+
+.grid {
+    flex-grow: 0.5;
+    /*width: 100%;*/
+    aspect-ratio: 1/1;
+    border: 0.5px solid black;
+    display: inline-block;
+}
+
+#boardAttack{
+    background-color: red;
+}
+.aliad-board{
+    background-color: green;
+}
+
+
+
 .position{
     display: inline-block;
 }
