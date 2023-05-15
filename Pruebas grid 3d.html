@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tablero de Ajedrez 3D</title>
+    <style>
+        body{
+            -webkit-perspective: 1000;
+            /*-webkit-perspective-origin: 1000px 0px;*/
+            /*webkit perspective origin always in the center*/
+            -moz-perspective: 1000;
+            background:black;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            max-height: 100vh !important;
+            overflow: hidden;
+        }
+        #grid{
+            margin:auto;
+            width:840px;
+            -webkit-transform: rotate3d(1,0,0, 70deg);
+            -webkit-transform-style: preserve-3d;
+            margin-top:25%;
+        }
+        #grid>div{
+/*            -webkit-perspective: 600;
+            -moz-perspective: 600;
+            perspective: 600;
+            -webkit-transform-style: preserve-3d;*/
+            color:white;
+            font-family:Arial;
+            font-size:70px;
+            line-height:140px;
+            height:140px;
+            width:140px;
+            float:left;
+            text-align:center;
+            cursor:auto ;
+            position:relative;
+        }
+
+        #grid>div>div{
+            -webkit-transform-origin:50% 100%;
+            border: aqua 2px solid;
+            width:100%;
+            height:100%;
+            -webkit-transition:-webkit-transform ease 0.5s;
+            -moz-transition:-moz-transform ease 0.5s;
+            transition:transform ease 0.5s;
+        }
+        #grid div{
+            background: #ff6a6a;
+        }
+
+/*        #grid>div:nth-child(4n)>div{background:red;}
+        #grid>div:nth-child(4n+1)>div{background:orange;}
+        #grid>div:nth-child(4n+2)>div{background:blue;}
+        #grid>div:nth-child(4n+3)>div{background:green;}*/
+
+/*        #grid>div:nth-child(6n+1){-webkit-perspective-origin: 300% 100%;-moz-perspective-origin: 300% 100%;}
+        #grid>div:nth-child(6n+2){-webkit-perspective-origin: 200% 100%;-moz-perspective-origin: 200% 100%;}
+        #grid>div:nth-child(6n+3){-webkit-perspective-origin: 100% 100%;-moz-perspective-origin: 100% 100%;}
+        #grid>div:nth-child(6n+4){-webkit-perspective-origin: 0% 100%;-moz-perspective-origin: 0% 100%;}
+        #grid>div:nth-child(6n+5){-webkit-perspective-origin: -100% 100%;-moz-perspective-origin: -100% 100%;}
+        #grid>div:nth-child(6n+6){-webkit-perspective-origin: -200% 100%;-moz-perspective-origin: -200% 100%;}*/
+
+
+    </style>
+</head>
+<body>
+<div id="grid">
+    <div><div>hee</div></div>
+    <div><div>wat</div></div>
+    <div><div>is</div></div>
+    <div><div>dit</div></div>
+    <div><div>hee</div></div>
+    <div><div>wat</div></div>
+    <div><div>is</div></div>
+    <div><div>dit</div></div>
+    <div><div>hee</div></div>
+    <div><div>wat</div></div>
+    <div><div>is</div></div>
+    <div><div>dit</div></div>
+    <div><div>hee</div></div>
+    <div><div>wat</div></div>
+    <div><div>is</div></div>
+    <div><div>dit</div></div>
+    <div><div>hee</div></div>
+    <div><div>wat</div></div>
+    <div><div>is</div></div>
+    <div><div>dit</div></div>
+    <div><div>hee</div></div>
+    <div><div>wat</div></div>
+    <div><div>is</div></div>
+    <div><div>dit</div></div>
+</div>
+</body>
+</html>
