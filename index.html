@@ -10,7 +10,7 @@
     <body>
 
 
-    <div class="container">
+    <div class="container" id="contenedor">
         <div class="Game">
 
             <h1>BattleShip</h1>
@@ -19,15 +19,17 @@
             <div class="flex">
 
                 <div class="col">
-                    <div id="boardAttack">
-                    </div>
-                </div>
-
-                <div class="col">
                     <div id="board" class="aliad-board">
                     </div>
                 </div>
+                <div class="col flex-middle" style="display: none">
+                    <h1> <- </h1>
+                </div>
 
+                <div class="col atack" style="display: none">
+                    <div id="boardAttack">
+                    </div>
+                </div>
             </div>
 
             <div class="row">
@@ -76,9 +78,12 @@
 
             </div>
         </div>
+        <img id="imagenFlotante" src="" alt="Portaaviones">
+
     </div>
 
         <script type="text/javascript" src="battle.js"></script>
+
 
     <script type="text/javascript">
         /*when i click menu put class "hide" into class "lateral-menu*/
@@ -89,5 +94,14 @@
         });
 
     </script>
+
+    <script type="text/javascript">
+        /*prevent context menu to open*/
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        }, false);
+    </script>
+
+
     </body>
 </html>

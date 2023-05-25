@@ -5,10 +5,13 @@ let matrix = [];
 let matrixAttack = [];
 const sizeShip = [5, 4, 3, 2];
 const positionArray = ["horizontal", "vertical"]
-let quantityShip = [1, 1, 1, 2];
+const shipNames = ["Portaaviones", "Acorazado", "Submarino", "Destructor"];
+let quantityShip = [9, 1, 1, 2];
 let quantityShipPC =  [1, 1, 1, 2];
 let ship = {};
 let shipRandom = {};
+var barcoSeleccionado = "none";
+var rotacion = false;
 
 //Función para creación de tableros
 function createMatrix(boardType, matrixType, func, type){
@@ -30,27 +33,45 @@ function createMatrix(boardType, matrixType, func, type){
 }
 //Función para seleccionar barco
 function selectShip(event){
+    if (barcoSeleccionado == event.target.className.split(" ")[2]) {
+        barcoSeleccionado = "none";
+        ship = {};
+        console.log("deseleccionado")
+    }else{
+        console.log("recogido")
+        barcoSeleccionado = event.target.className.split(" ")[2];
+        console.log(barcoSeleccionado)
+    }
     shipData = event.target.className.split(" ");
     ship.position = shipData[0];
     ship.size = sizeShip[shipData[1]];
     ship.quantity = quantityShip[shipData[1]];
     ship.id = shipData[1];
+    /*duplicar imagen del barco seleccionado y ponerla en el cursor*/
 }
 //Creación de tablero jugador
 createMatrix(board, matrix, selectPosition, "player");
 //Creación de barcos
-for(let i=0; i<position.length; i++){
+for (let i = 0; i < position.length; i++) {
     let horizontal = document.createElement("div");
     position[i].appendChild(horizontal);
-    horizontal.className = "horizontal " + i;
+    horizontal.className = "horizontal " + i + " " + shipNames[i];
     horizontal.addEventListener("click", selectShip)
+/*
+    horizontal.style.backgroundImage = "url('" + shipImages[i] + "')";
+*/
+
     let vertical = document.createElement("div");
     position[i].appendChild(vertical);
-    vertical.className = "vertical " + i;
+    vertical.className = "vertical " + i + " " + shipNames[i];
     vertical.addEventListener("click", selectShip)
-}
-//Función para seleccionar posición de los barcos
+
+    /*
+        vertical.style.backgroundImage = "url('" + shipImages[i] + "')";
+    */
+}//Función para seleccionar posición de los barcos
 function selectPosition(event){
+
     if(ship.quantity > 0){
         let grid = event.target
         let gridID = grid.id.split(",");
@@ -60,10 +81,11 @@ function selectPosition(event){
             if((y + (ship.size - 1)) < 10){
                 for(let i=y; i<(y + ship.size); i++){
                     matrix[x][i] = "ship";
-                    document.getElementById(x + "," + i + "," + "player").className += " selected";
+                    document.getElementById(x + "," + i + "," + "player").className += " selected "+ shipNames[ship.id]+(i-y)+" posh";
                 }
                 quantityShip[ship.id] -= 1;
                 ship = {}
+                barcoSeleccionado = "none";
             }
             else{
                 alert("Selecciona una posición válida");
@@ -73,10 +95,11 @@ function selectPosition(event){
             if((x + (ship.size - 1)) < 10){
                 for(let i=x; i<(x + ship.size); i++){
                     matrix[i][y] = "ship";
-                    document.getElementById(i + "," + y + "," + "player").className += " selected";
+                    document.getElementById(i + "," + y + "," + "player").className += " selected "+ shipNames[ship.id]+(i-x)+" posv";
                 }
                 quantityShip[ship.id] -= 1;
                 ship = {}
+                barcoSeleccionado = "none";
             }
             else{
                 alert("Selecciona una posición válida");
@@ -89,9 +112,15 @@ function selectPosition(event){
 }
 //Función de botón iniciar juego
 function startGame(){
+    /*remove display none from .col.atack*/
     createMatrix(boardAttack, matrixAttack, checkShot, "pc");
     selectPositionRandom()
     document.querySelector("#button").disabled = true;
+    /*document.querySelector('.col.atack').style.display = 'block';*/
+    let element = document.querySelector('.col.atack');
+    element.style.display = '';
+    let element2 = document.querySelector('.flex-middle');
+    element2.style.display = '';
 }
 //Generar posición random de barcos
 function selectPositionRandom(){
@@ -196,3 +225,97 @@ function checkWinner(matrix, player){
         alert("GANASTE!!!")
     }
 }
+
+
+// Obtén una referencia al contenedor y la imagen flotante
+var contenedor = document.getElementById("contenedor");
+var imagenFlotante = document.getElementById("imagenFlotante");
+
+// Agrega eventos para seguir el cursor y ocultar la imagen flotante
+contenedor.addEventListener("mousemove", seguirCursor);
+contenedor.addEventListener("contextmenu", rotarBarco);
+contenedor.addEventListener("mouseleave", ocultarImagenFlotante);
+
+
+function rotarBarco(evento){
+    /*update rotacion*/
+    rotacion = !rotacion;
+    if(rotacion){
+        imagenFlotante.className = "rotacion";
+    }else{
+        imagenFlotante.className = "";
+    }
+
+}
+
+function seguirCursor(evento) {
+    // Obtén la información del barco seleccionado
+    var imagenURL = obtenerURLImagen(barcoSeleccionado);
+    var imagenAncho = obtenerAnchoImagen(barcoSeleccionado);
+
+    // Actualiza la imagen flotante según el barco seleccionado
+    imagenFlotante.src = imagenURL;
+    imagenFlotante.style.display = "block";
+    imagenFlotante.style.width = imagenAncho + "px";
+
+    // Actualiza la posición de la imagen flotante según la posición del cursor
+    imagenFlotante.style.left = evento.clientX + "px";
+    imagenFlotante.style.top = evento.clientY + "px";
+}
+
+function ocultarImagenFlotante() {
+    console.log("ocultar");
+    imagenFlotante.style.display = "none";
+}
+
+// Función auxiliar para obtener la URL de la imagen según el barco seleccionado
+function obtenerURLImagen(barcoSeleccionado) {
+    // Lógica para determinar la URL de la imagen según el barco seleccionado
+    let url = "barcos/assets/";
+    switch (barcoSeleccionado) {
+        case "Acorazado":
+            url += "acorazado.png";
+            break;
+        case "Portaaviones":
+            url += "portaviones.png";
+            break;
+        case "Submarino":
+            url += "submarino.png";
+            break;
+        case "Destructor":
+            console.log("owo")
+            url += "barco_reconocimiento.png";
+            break;
+        default:
+            console.log(":C")
+            url = "";
+            break
+    }
+    return url;
+}
+
+// Función auxiliar para obtener el ancho de la imagen según el barco seleccionado
+function obtenerAnchoImagen(barcoSeleccionado) {
+    // Lógica para determinar el ancho de la imagen según el barco seleccionado
+    var ancho = 0;
+    switch (barcoSeleccionado) {
+        case "Acorazado":
+            ancho = 200;
+            break;
+        case "Portaaviones":
+            ancho = 250;
+            break;
+        case "Submarino":
+            ancho = 150;
+            break;
+        case "Destructor":
+            ancho = 100;
+            break;
+        default:
+            url = "";
+            break
+    }
+
+    return ancho;
+}
+

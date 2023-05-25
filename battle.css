@@ -1,16 +1,11 @@
-
 body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
     font-family: 'Roboto', sans-serif;
     /*reset*/
     background-color: #CEDEEA;
     text-align: center;
-    /*3d*/
-    -webkit-perspective: 1000;
-    -webkit-perspective-origin: 1000px 0px;
 }
 
 
@@ -27,7 +22,7 @@ body{
 .Game{
     width: 100%;
     height: 100%;
-    background-color: #926e6e;
+    background-color: #89d2ff;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 /*contenedor del menu lateral, es la parte derecha*/
@@ -50,7 +45,6 @@ body{
     color: rgba(255,255,255,0);
     transition: all 1s ease;
 }
-
 .lateral-menu #btnMenu{
     position: absolute;
     background-color: #ff6a6a;
@@ -58,11 +52,12 @@ body{
     height: 50px;
     border: none;
     outline: none;
+    /*
     cursor: pointer;
+    */
     transition: all 1s ease;
 
 }
-
 /*when the screen is smaller than 992px*/
 @media screen and (max-width: 992px){
     .lateral-menu{
@@ -95,31 +90,56 @@ body{
         border-bottom-left-radius: 50%;
     }
 }
-
 .menu-content{
     margin: 20px;
     text-align: center;
 }
 /*FIN CONTENEDORES MENU*/
 
-
-
 /*contenedor de los tableros*/
 .flex{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-evenly;
 }
+
+/*el elemento central del flex, no tiene margenes ni esapcio*/
+.col.flex-middle{
+    width: 0;
+}
+
 
 /*ancho del tablero del jugador*/
 .col{
-    width: 40%;
+    width: 100%;
+    max-width: 40%;
 }
 .myRow {
     width: 100%;
     display: flex;
 }
 
+/*si el tamaño es menor a 992px*/
+@media screen and (max-width: 992px){
+    .flex{
+        flex-direction: column;
+    }
+    .col{
+        max-width: 60%;
+        max-height: 60%;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .flex{
+        flex-direction: column;
+    }
+    .col{
+        max-width: 80%;
+        max-height: 80%;
+    }
+}
 
 .grid {
     flex-grow: 0.5;
@@ -130,37 +150,212 @@ body{
 }
 
 #boardAttack{
-    background-color: red;
+    background-color: rgba(139, 0, 0, 0.3);
 }
 .aliad-board{
-    background-color: green;
-    -webkit-transform: rotate3d(1,0,0, 70deg);
-    -webkit-transform-style: preserve-3d;
-
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
+
+.hit{
+    background-color: red;
+}
+.miss{
+    background-color: gray;
+}
+
+
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.col.atack {
+    animation: slideIn 0.5s forwards;
+}
+@keyframes slideIn {
+    0% {
+        width: 0;
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+.col.atack {
+    animation: slideIn 0.5s forwards;
+}
+
+
+/*colocar imagen superpuesta de elemento .barco.portaviones" */
+.Portaaviones{
+    width: 250px;
+    background-image: url("barcos/assets/portaviones.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*aspect ratio*/
+    aspect-ratio: 5/1;
+}
+
+.rotacion{
+    /*rotate from the left of the object*/
+    transform-origin: left center;
+    transform: rotate(90deg);
+}
+.Portaaviones0::after{
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 40px;
+    background-image: url("barcos/assets/portaviones.png");
+    z-index: 999;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.Portaaviones0.posh::after {
+    margin-left: -20px;
+}
+.Portaaviones0.posv::after{
+    transform-origin: left center;
+    transform: rotate(90deg);
+    margin-top: -20px;
+}
+
+
+.Acorazado{
+    width: 200px;
+    background-image: url("barcos/assets/acorazado.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*aspect ratio*/
+    aspect-ratio: 4/1;
+}
+
+.Acorazado0::after{
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    background-image: url("barcos/assets/acorazado.png");
+    z-index: 999;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.Acorazado0.posh::after {
+    margin-left: -20px;
+    margin-top: 10px;
+}
+.Acorazado0.posv::after{
+    transform-origin: left center;
+    transform: rotate(90deg);
+}
+
+
+
+.Submarino{
+    width: 150px;
+    background-image: url("barcos/assets/submarino.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*aspect ratio*/
+    aspect-ratio: 3/1;
+}
+
+.Submarino0::after{
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    background-image: url("barcos/assets/submarino.png");
+    z-index: 999;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.Submarino0.posh::after {
+    margin-left: -20px;
+    margin-top: 10px;
+}
+.Submarino0.posv::after{
+    transform-origin: left center;
+    transform: rotate(90deg);
+}
+
+.Destructor{
+    width: 100px;
+    height: 20px;
+    background-image: url("barcos/assets/barco_reconocimiento.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*aspect ratio*/
+    aspect-ratio: 2/1;
+}
+
+.Destructor0::after{
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 20px;
+    background-image: url("barcos/assets/barco_reconocimiento.png");
+    z-index: 999;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.Destructor0.posh::after {
+    margin-left: -20px;
+    margin-top: 10px;
+}
+.Destructor0.posv::after{
+    transform-origin: left center;
+    transform: rotate(90deg);
+}
 
 
 .position{
     display: inline-block;
 }
 .horizontal{
-    width: 35px;
-    height: 15px;
-    border: black 0.5px solid;
+    height: 50px;
+    background-color: rgba(12, 26, 76, 0.3);
+    border-radius: 20px;
 }
 .vertical{
     width: 15px;
-    height: 35px;
     border: black 0.5px solid;
     margin-top: 5px;
 }
+
 .selected{
     background-color: blue;
 }
-.hit{
-    background-color: red;
-}
-.miss{
-    background-color: gray;
+
+
+
+#imagenFlotante {
+    position: fixed;
+    pointer-events: none;
+    display: none;
+    z-index: 9999; /* Asegúrate de que la imagen esté en un nivel superior */
 }
